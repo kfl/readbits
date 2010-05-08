@@ -1,1 +1,4 @@
 dist
+/readbits-hs
+/readbits.hi
+/readbits.o
