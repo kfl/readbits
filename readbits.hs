@@ -3,8 +3,8 @@
 -- Copyright: (c) 2010 Ken Friis Larsen
 
 import qualified Data.ByteString.Lazy as BL
-import Data.Binary
 
+import Data.Word (Word8)
 import Data.List (foldl')
 import Data.Bits (shiftL, (.|.), (.&.), bit)
 import System (getArgs)

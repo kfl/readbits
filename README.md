@@ -13,5 +13,5 @@ You can either use cabal:
 
 Or you can just use `ghc` directly:
 
-    $ ghc -O3 readbits.hs -o readbits-hs
+    $ ghc -O3 --make readbits.hs -o readbits-hs
     $ ./readbits-hs infile outfile
