@@ -1,9 +1,13 @@
+-- Example of how to use the ByteString library to work with binary data.
+-- Author: Ken Friis Larsen <ken@friislarsen.net>
+-- Copyright: (c) 2010 Ken Friis Larsen
+
 import qualified Data.ByteString.Lazy as BL
 import Data.Binary
 
 import Data.List (foldl')
 import Data.Bits (shiftL, (.|.), (.&.), bit)
-import System(getArgs)
+import System (getArgs)
 
 data Bit = Z | O deriving (Show, Eq)
 
