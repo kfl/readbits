@@ -1,0 +1,16 @@
+Name:		readbits
+Version:	0.1
+Description:    Example of how to use Data.ByteStream and Data.Binary
+Author:		Ken Friis Larsen
+Maintainer:	ken@friislarsen.net
+License:	BSD3
+Copyright:      (c) 2010 Ken Friis Larsen
+Cabal-Version:  >=1.2
+Build-Type:     Simple
+
+
+
+Executable readbits-hs
+  Main-is:		readbits.hs
+  Build-Depends:	haskell98, base >= 3, bytestring, binary >= 0.5
+  ghc-options: -Wall -O3
