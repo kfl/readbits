@@ -2,3 +2,7 @@ dist
 /readbits-hs
 /readbits.hi
 /readbits.o
+/readbits-hs.aux
+/readbits-hs.hp
+/readbits-hs.prof
+/readbits-hs.ps
