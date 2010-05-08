@@ -36,5 +36,5 @@ main = do
               bytestring <- BL.readFile infile
               let bits = [b | w <- BL.unpack bytestring, b <- byteToBits w]
               let ones = filter (== O) bits
-              BL.writeFile outfile (BL.pack $ packInList ones)
+              BL.writeFile outfile $ BL.pack $ packInList ones
     _ -> Prelude.putStrLn "usage: readbits-hs <infile> <outfile>"
