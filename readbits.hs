@@ -2,10 +2,13 @@ import qualified Data.ByteString.Lazy as BL
 import Data.Binary
 
 import Data.List (foldl')
-import Data.Bits (shiftL, (.|.))
+import Data.Bits (shiftL, (.|.), (.&.), bit)
 import System(getArgs)
 
 data Bit = Z | O deriving (Show, Eq)
+
+byteToBits :: Word8 -> [Bit]
+byteToBits w = [if w .&. b == 0 then Z else O | i <- [1 .. 8], let b = bit i]
 
 b2b :: Bit -> Word8
 b2b Z = 0
@@ -20,11 +23,14 @@ packInList (b1 : b2 : b3 : b4 : b5 : b6 : b7 : b8 : rest) =
 packInList ragged = [(foldl' (\ res b -> (res `shiftL` 1) + b2b b) 0 ragged) `shiftL` (8 - Prelude.length ragged)]
 
 
+
 main :: IO()
 main = do
   args <- getArgs
   case args of
     [infile, outfile] -> do
-              Prelude.putStrLn $ "Infile: " ++ infile
-              Prelude.putStrLn $ "Outfile: " ++ outfile
+              bytestring <- BL.readFile infile
+              let bits = [b | w <- BL.unpack bytestring, b <- byteToBits w]
+              let ones = filter (== O) bits
+              BL.writeFile outfile (BL.pack $ packInList ones)
     _ -> Prelude.putStrLn "usage: readbits-hs <infile> <outfile>"
