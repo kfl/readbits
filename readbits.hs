@@ -12,7 +12,8 @@ import System (getArgs)
 data Bit = Z | O deriving (Show, Eq)
 
 byteToBits :: Word8 -> [Bit]
-byteToBits w = [if w .&. b == 0 then Z else O | i <- [1 .. 8], let b = bit i]
+byteToBits w = map (\m -> if w .&. m == 0 then Z else O) masks
+    where masks = [bit i | i <- [1 .. 8]]
 
 b2b :: Bit -> Word8
 b2b Z = 0
@@ -26,6 +27,9 @@ packInList (b1 : b2 : b3 : b4 : b5 : b6 : b7 : b8 : rest) =
 -- Special case: if we don't have enough bits to fill a byte, we'll pad with zeros
 packInList ragged = [(foldl' (\ res b -> (res `shiftL` 1) + b2b b) 0 ragged) `shiftL` (8 - Prelude.length ragged)]
 
+-- Example transformation, filter out all the zeros
+transform :: [Bit] -> [Bit]
+transform bits = filter (== O) bits
 
 
 main :: IO()
@@ -35,6 +39,7 @@ main = do
     [infile, outfile] -> do
               bytestring <- BL.readFile infile
               let bits = [b | w <- BL.unpack bytestring, b <- byteToBits w]
-              let ones = filter (== O) bits
-              BL.writeFile outfile $ BL.pack $ packInList ones
+              let transformed = transform bits
+              let bytes = packInList transformed
+              BL.writeFile outfile $ BL.pack bytes
     _ -> Prelude.putStrLn "usage: readbits-hs <infile> <outfile>"

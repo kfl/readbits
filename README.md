@@ -1,7 +1,7 @@
 What is it?
 ===========
 
-Example code showing how to use the ByteString library to work with binary data in Haskell.
+Example code showing how to use the ByteString library to work with binary data in Haskell. The code reads in a file as a ByteString, translate the ByteString to an internal datatype, `[Bit]`, transform the list of bits, re-packs it as a list of bytes, and write the list of bytes to a file. 
 
 How to build
 ------------
@@ -24,5 +24,5 @@ How can check that code really behaves as we intend? By using the space profiler
 
     $ ghc -O3 --make -prof -auto-all -caf-all readbits.hs -o readbits-hs
     $ ./readbits-hs <infile> <outfile> +RTS -hc -p
-	$ hp2ps -e8in -c readbits-hs.hp && open readbits-hs.ps
+    $ hp2ps -e8in -c readbits-hs.hp && open readbits-hs.ps
 	
