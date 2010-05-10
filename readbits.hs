@@ -42,4 +42,7 @@ main = do
               let transformed = transform bits
               let bytes = packInList transformed
               BL.writeFile outfile $ BL.pack bytes
-    _ -> Prelude.putStrLn "usage: readbits-hs <infile> <outfile>"
+    ["-copy", infile, outfile] -> do
+              bytestring <- BL.readFile infile
+              BL.writeFile outfile bytestring
+    _ -> Prelude.putStrLn "usage: readbits-hs [-copy] <infile> <outfile>"
