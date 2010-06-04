@@ -12,5 +12,5 @@ Build-Type:     Simple
 
 Executable readbits-hs
   Main-is:		readbits.hs
-  Build-Depends:	haskell98, base >= 3, bytestring
+  Build-Depends:	haskell98, base, bytestring
   ghc-options: -Wall -O3

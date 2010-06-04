@@ -3,6 +3,9 @@
 -- Copyright: (c) 2010 Ken Friis Larsen
 
 import qualified Data.ByteString.Lazy as BL
+import qualified Data.ByteString.Lazy.Char8 as BC
+
+import qualified Regexp as R
 
 import Data.Word (Word8)
 import Data.List (foldl')
@@ -45,4 +48,7 @@ main = do
     ["-copy", infile, outfile] -> do
               bytestring <- BL.readFile infile
               BL.writeFile outfile bytestring
+    ["-regexp", infile, outfile] -> do
+              bytestring <- BC.readFile infile
+              print $ R.match' R.ex1 $ BC.unpack bytestring
     _ -> Prelude.putStrLn "usage: readbits-hs [-copy] <infile> <outfile>"
